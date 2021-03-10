@@ -1,0 +1,332 @@
+ body{
+  display: flex;
+  -webkit-justify-content: center;
+          justify-content: center;
+
+ }
+ .active{
+  display: block !important;
+ }
+ .show{
+  overflow: visible !important;
+ }
+ .show .filter-item{
+  display: block !important;
+ }
+ .page {
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 200px 1fr;
+  row-gap: 5px;
+  column-gap: 5px;
+  padding: 5px;
+  height: 100%;
+  min-height: 100px;
+  background-color: black;
+}
+.page .section-boxes {
+  display: grid;
+  grid-template-rows: 30px 1fr;
+  row-gap: 5px;
+}
+.page .section-boxes .header {
+  background-color: #FFF;
+  position: relative;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 50px;
+  grid-template-rows: 1fr;
+}
+.page .section-boxes .header:before {
+  content: "";
+  position: absolute;
+  background-color: blue;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+.page .section-boxes .header .item {
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border: 1px solid black;
+}
+.page .section-boxes .header .filter{
+  position: relative;
+  overflow: hidden;
+}
+.page .section-boxes .header .filter ul{
+  position: absolute;
+  padding-left: 0;
+  margin: 0;
+  top: 0;
+  background-color: #fff;
+  width: calc(100% - 3px);
+}
+.page .section-boxes .header .filter ul li{
+  list-style-type: none;
+  padding: 4.5px;
+}
+.page .section-boxes .header .filter .filter-item{ 
+  display: none;
+
+}
+.page .section-boxes .boxes-wrap {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  row-gap: 1px;
+  column-gap: 1px;
+}
+.page .section-boxes .boxes-wrap .item {
+  padding: 5px;
+  background-color: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: "trendtype trendtype" "symbol symbol" "marketState rValue";
+}
+.page .section-boxes .boxes-wrap .item .trendtype {
+  grid-area: trendtype;
+  color: red;
+}
+.page .section-boxes .boxes-wrap .item .symbol {
+  grid-area: symbol;
+  text-align: center;
+  color: red;
+}
+.page .section-boxes .boxes-wrap .item .marketState {
+  grid-area: marketState;
+  text-align: left;
+}
+.page .section-boxes .boxes-wrap .item .rValue {
+  grid-area: rValue;
+  text-align: right;
+}
+.page .section-trades {
+  display: grid;
+  grid-template-rows: 30px 1fr;
+  row-gap: 5px;
+}
+.page .section-trades .header {
+  background-color: #fff;
+  position: relative;
+}
+.page .section-trades .header:before {
+  content: "";
+  position: absolute;
+  background-color: blue;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+.page .section-trades .trades-wrap {
+  display: grid;
+  grid-template-rows: repeat(25, 1fr);
+  row-gap: 2px;
+}
+.page .section-trades .trades-wrap .item {
+  background-color: #FFF;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.page .section-info {
+  display: grid;
+  grid-template-rows: 30px 1fr;
+  row-gap: 5px;
+}
+.page .section-info .header {
+  background-color: #fff;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.page .section-info .header:before {
+  content: "";
+  position: absolute;
+  background-color: blue;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+.page .section-info .header .tab {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.page .section-info .header .tab a {
+  padding: 5px 20px;
+  text-decoration: none;
+  color: black;
+}
+.page .section-info .header .tab:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.page .section-info .info-wrap {
+  background-color: #fff;
+  height: 100%;
+}
+.page .section-info .info-wrap .item {
+  display: none;
+  height: 100%;
+  padding: 5px;
+}
+.page .section-info .info-wrap .active {
+  display: grid !important;
+}
+.page .section-info .info-wrap #tab1 {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 3fr 2fr;
+  row-gap: 5px;
+  column-gap: 5px;
+  grid-template-areas: "area1 area1 area1 area2" "area3 area3 area4 area4";
+}
+.page .section-info .info-wrap #tab1 .area1 {
+  grid-area: area1;
+}
+.page .section-info .info-wrap #tab1 .area2 {
+  grid-area: area2;
+}
+.page .section-info .info-wrap #tab1 .area2 div {
+  height: 100px;
+  width: 100px;
+  border-radius: 15px;
+  background-color: blue;
+}
+.page .section-info .info-wrap #tab1 .area3 {
+  grid-area: area3;
+}
+.page .section-info .info-wrap #tab1 .area3 .header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+.page .section-info .info-wrap #tab1 .area3 .graph {
+  height: 100%;
+  width: 100%;
+  background-color: blue;
+  border-radius: 5px;
+  height: calc(100% - 30px);
+}
+.page .section-info .info-wrap #tab1 .area4 {
+  grid-area: area4;
+}
+.page .section-info .info-wrap #tab1 .area4 .header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+.page .section-info .info-wrap #tab1 .area4 .graph {
+  height: 100%;
+  width: 100%;
+  background-color: blue;
+  border-radius: 5px;
+  height: calc(100% - 30px);
+}
+.page .section-info .info-wrap #tab2 {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 3fr 2fr;
+  row-gap: 5px;
+  column-gap: 5px;
+  grid-template-areas: "area1 area1 area1 area1" "area2 area3 area4 area4";
+}
+.page .section-info .info-wrap #tab2 .area1 {
+  grid-area: area1;
+}
+.page .section-info .info-wrap #tab2 .area2 {
+  grid-area: area2;
+}
+.page .section-info .info-wrap #tab2 .area2 .header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+.page .section-info .info-wrap #tab2 .area2 .graph {
+  height: 100%;
+  width: 100%;
+  background-color: blue;
+  border-radius: 5px;
+  height: calc(100% - 30px);
+}
+.page .section-info .info-wrap #tab2 .area3 {
+  grid-area: area3;
+}
+.page .section-info .info-wrap #tab2 .area3 .header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+.page .section-info .info-wrap #tab2 .area3 .graph {
+  height: 100%;
+  width: 100%;
+  background-color: blue;
+  border-radius: 5px;
+  height: calc(100% - 30px);
+}
+.page .section-info .info-wrap #tab2 .area4 {
+  grid-area: area4;
+}
+.page .section-info .info-wrap #tab2 .area4 .header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+.page .section-info .info-wrap #tab2 .area4 .graph {
+  height: 100%;
+  width: 100%;
+  background-color: blue;
+  border-radius: 5px;
+  height: calc(100% - 30px);
+}
+.page .section-info .info-wrap #tab3 {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 3fr 2fr;
+  row-gap: 5px;
+  column-gap: 5px;
+  grid-template-areas: "area1 area1" "area2 area3";
+}
+.page .section-info .info-wrap #tab3 .area1 {
+  grid-area: area1;
+}
+.page .section-info .info-wrap #tab3 .area3 {
+  grid-area: area3;
+}
+.page .section-info .info-wrap #tab3 .area3 .header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+.page .section-info .info-wrap #tab3 .area3 .graph {
+  height: 100%;
+  width: 100%;
+  background-color: blue;
+  border-radius: 5px;
+  height: calc(100% - 30px);
+}
+.page .section-info .info-wrap #tab3 .area2 {
+  grid-area: area2;
+}
+.page .section-info .info-wrap #tab3 .area2 .header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+.page .section-info .info-wrap #tab3 .area2 .graph {
+  height: 100%;
+  width: 100%;
+  background-color: blue;
+  border-radius: 5px;
+  height: calc(100% - 30px);
+}
