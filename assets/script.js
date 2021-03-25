@@ -22,14 +22,6 @@ const tradesWrap = document.querySelector('.trades-wrap')
 //   boxWrap.append(item);
 //   }
 
-for(let i=0; i<25 ;i++){
-  let item = document.createElement('div');
-  item.className = ('item');
-  item.innerText = `${25-i}`;
-  tradesWrap.append(item);
-  }
-
-
 document.querySelectorAll('.section-info .header .tab a').forEach(item => {
   item.addEventListener('click',(e)=>{
     e.preventDefault();
@@ -49,20 +41,20 @@ function renderFilters(arr){
   const filterBlock = document.querySelector('.page .header .filter ul');
 
   arr.forEach(item => {
-   if (!filterArr.includes(item['Mkt Group']) && item['Mkt Group']){
+   if (!filterArr.includes(item['date']) && item['date']){
        let filterItem = document.createElement('li');
        filterItem.className = ('filter-item');
-       filterItem.innerText = item['Mkt Group'];
-       filterItem.setAttribute('value',item['Mkt Group']);
+       filterItem.innerText = item['date'];
+       filterItem.setAttribute('value',item['date']);
 
        if(filterArr.length <= 0) {
         filterItem.classList.add('active');
-        renderBlocks(item['Mkt Group'],arr);
+        renderBlocks(item['date'],arr);
         
       }
 
-       filterArr.push(item['Mkt Group']);
-       filterBlock.append(filterItem);
+       filterArr.push(item['date']);
+       filterBlock.prepend(filterItem);
    }
   })
 
@@ -84,7 +76,6 @@ function renderFilters(arr){
       }
 
       this.classList.add('active');
-      console.log(item.getAttribute('value'))
     })
   })
 
@@ -93,22 +84,23 @@ function renderFilters(arr){
 
 function renderBlocks(blockGroup, arr){
 
-    const blockGroupArr = arr.filter(item => item['Mkt Group'] === blockGroup)
+    const blockGroupArr = arr.filter(item => item['date'] === blockGroup)
     const boxWrap = document.querySelector('.boxes-wrap');
     while (boxWrap.firstChild) {
      boxWrap.removeChild(boxWrap.lastChild);
     }
 
     blockGroupArr.forEach(blockItem => {
+
      let item = document.createElement('div');
      item.className = ('item');
      item.style = ('background-color: #ffffff');
      let trendtype = document.createElement('div');
      trendtype.className = ('trendtype');
-     trendtype.innerText = (blockItem['Type']);
+     trendtype.innerText = (blockItem['name']);
      let symbol = document.createElement('div');
      symbol.className = ('symbol');
-     symbol.innerText = (blockItem['Symbol']);
+     symbol.innerText = (blockItem['symbol']);
      let marketState = document.createElement('div');
      marketState.className = ('marketState');
       marketState.innerText = ('MS');
@@ -116,22 +108,52 @@ function renderBlocks(blockGroup, arr){
      rValue.className = ('rValue');
      rValue.innerText = ('=R');
      item.append(trendtype,symbol,marketState,rValue);
-  
-      boxWrap.append(item);
+     boxWrap.append(item);
+
+     item.addEventListener('click',function(e){
+        renderBlockInformationOnClick(e);
+      	renderPriceMap(e, arr);
+     })
     })
 }
 
+function renderBlockInformationOnClick(e){
+  //usage f.e. trendtype.innerText;
+  const [trendtype, symbol, marketState,rValue] = e.currentTarget.childNodes;
+  const informationBlock = document.querySelector('.page .section-info .info-wrap #tab1 .area2 div')
+  informationBlock.innerText = symbol.innerText;
+
+}
+function renderPriceMap(e, arr){
+	const [symbol] = e.currentTarget.childNodes;
+	const date = document.querySelector('li.filter-item.active').innerText;
+	const currentPriceMap = arr.filter(item => (item.date === date && item.name === symbol.innerText));
+
+	document.querySelector('.trades-wrap').innerHTML = '';
+
+	for(let priceMapItem in currentPriceMap[0]){
+		if(priceMapItem.includes('pricemap'))  renderPriceMapBlock(currentPriceMap[0][priceMapItem])
+	}
+
+	function renderPriceMapBlock(text){
+		let item = document.createElement('div');
+ 		item.className = ('item');
+  		item.innerText = text;
+ 		tradesWrap.append(item);
+	}
+}
 function afterFetch(json){
   let fetchData = JSON.parse(json).map(item => item['data']).flat();
   renderFilters(fetchData);
-
+  console.log(fetchData);
 }
 var requestOptions = {
   method: 'GET',
   redirect: 'follow'
 };
 
-fetch("https://script.google.com/macros/s/AKfycbye7wMDg5gkcFDn9MWUT-XCcK0BtDqTAXAivF4bJRyRuBY4Ar0T8Io/exec", requestOptions)
+fetch("https://script.google.com/macros/s/AKfycbz9c0nINX01nTyFxCv8qQM2obCFlN730uxxePwsYN9tTfoZMAJNA90KtaFGc7wtXq0/exec?getdata=price_map", requestOptions)
   .then(response => response.text())
+  // .then(result => afterFetch(result))
   .then(result => afterFetch(result))
   .catch(error => console.log('error', error));
